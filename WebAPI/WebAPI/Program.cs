@@ -11,6 +11,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var sqlConnectionString = builder.Configuration["SqlConnectionString"];
+if (string.IsNullOrEmpty(sqlConnectionString))
+{
+    throw new ArgumentNullException("sqlConnectionString is null");
+}
 builder.Services.AddTransient<Environment2DRepository, Environment2DRepository>(o => new Environment2DRepository(sqlConnectionString));
 builder.Services.AddTransient<Object2DRepository, Object2DRepository>(o => new Object2DRepository(sqlConnectionString));
 builder.Services.AddTransient<UserRepository, UserRepository>(o => new UserRepository(sqlConnectionString));
