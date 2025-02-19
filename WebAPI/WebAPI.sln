@@ -1,11 +1,8 @@
-﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35707.178
+VisualStudioVersion = 17.5.2.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAPI", "WebAPI\WebAPI.csproj", "{00A50B58-103A-4993-92CC-D07283D59662}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProject1", "TestProject1\TestProject1.csproj", "{E80320F4-B061-401F-AE07-3285E24D750F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAPI", "WebAPI.csproj", "{1963FF41-1B1B-D560-A22D-F9D3C981C941}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,16 +10,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{00A50B58-103A-4993-92CC-D07283D59662}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{00A50B58-103A-4993-92CC-D07283D59662}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{00A50B58-103A-4993-92CC-D07283D59662}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{00A50B58-103A-4993-92CC-D07283D59662}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E80320F4-B061-401F-AE07-3285E24D750F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E80320F4-B061-401F-AE07-3285E24D750F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E80320F4-B061-401F-AE07-3285E24D750F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E80320F4-B061-401F-AE07-3285E24D750F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1963FF41-1B1B-D560-A22D-F9D3C981C941}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1963FF41-1B1B-D560-A22D-F9D3C981C941}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1963FF41-1B1B-D560-A22D-F9D3C981C941}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1963FF41-1B1B-D560-A22D-F9D3C981C941}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3E394BE8-FA7C-480C-9E1E-B2253796F453}
 	EndGlobalSection
 EndGlobal
