@@ -10,7 +10,7 @@ builder.Services.AddSwaggerGen();
 
 var sqlConnectionString = builder.Configuration["SqlConnectionString"];
 var sqlConnectionStringFound = !string.IsNullOrEmpty(sqlConnectionString);
-
+ 
 builder.Services.AddAuthorization();
 builder.Services.AddIdentityApiEndpoints<IdentityUser>(options =>
 {
