@@ -1,18 +1,1 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
-
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>1b8dd110-0e3c-414b-887f-b63ab5da48da</UserSecretsId>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Avans.Identity.DapperOrm" Version="1.0.3" />
-    <PackageReference Include="Dapper" Version="2.1.66" />
-    <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="8.0.13" />
-    <PackageReference Include="Microsoft.Data.SqlClient" Version="6.0.1" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="7.2.0" />
-  </ItemGroup>
-
-</Project>
+CfDJ8LCX7O6vayhMgFQt3kwCUEhsR3WbaFQ76lG-MiO0akokoeAWA1uTiK7avBkgO4W_B3BEdOUxo1qEh9SNZG2bJ0FC818nUKc2PAmxfQrVPqjta4bBPnXO_XTjrPEElateLeTd44r9m7T9d_zi-tnfWX_lfrtGJ4R8bPc0IaH6S8eNW9Mhib_MgmQmpdU8LAVbB9j2uxDTaUM3u9M0mgM_pfmXDeIohHW1tPrBAt2fKk5KdiDbMUqCRrAezxKIEwjUW8Hx9c0930SobqWKtXFQuhWaWbmaD-u3FhoAYchsWvWcnnm5_nLzekw3h66z61HkW7HGMHjesVh9IEG3CfPiQrGQ0CoKQA1YiZLLWQJdyIEOlA84bNunTPUnIyXWsLLfXUBdYwg1RuzN93o5IdprgFGMz7lFYxlj0RXfMFqqY1JVCQ4WP9bo8n3jjGP1gi5G9DSqbtl1m1yo_GIEClxjTKZLJvjHwa60NsmwIU2wxcJ9mAhBb0kfo_-y1nW4SRL6KuOwgHNt8vLktl1YL9NSgXun_U2VObuFsUC4QKvh36VRyYC1ukxnUSUnfv2fuHv7g-Zwv0BM_gzyJbQVCJ0Nu_zHhbIFwSLObAGMkjVWYNZAmUO5gYv9MwpNZXPfjxHucqYHP7_JOavbXtpdvkNnH76CH1_QDou7doFyfzjZCV1A9fzN2I11x07_5TV_dWAWAVi2DWBdnUYlezI5XqFshMI
