@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using WebAPI.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,7 +21,7 @@ builder.Services.AddIdentityApiEndpoints<IdentityUser>(options =>
     options.ConnectionString = sqlConnectionString;
 });
 
-builder.Services.AddTransient<EnvironmentRepository, EnvironmentRepository>(o => new EnvironmentRepository(sqlConnectionString));
+builder.Services.AddTransient<Environment2DRepository, Environment2DRepository>(o => new Environment2DRepository(sqlConnectionString));
 
 var app = builder.Build();
 
