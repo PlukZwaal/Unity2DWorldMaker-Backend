@@ -1,6 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging; // Voeg deze using toe
-using System.Threading.Tasks;
 
 [ApiController]
 [Route("environments")]
@@ -8,12 +6,12 @@ public class Environment2DController : ControllerBase
 {
     private readonly Environment2DRepository _repository;
     private readonly IAuthenticationService _authenticationService;
-    private readonly ILogger<Environment2DController> _logger; // Voeg een logger toe
+    private readonly ILogger<Environment2DController> _logger;
 
     public Environment2DController(
         Environment2DRepository repository,
         IAuthenticationService authenticationService,
-        ILogger<Environment2DController> logger) // Injecteer de logger
+        ILogger<Environment2DController> logger)
     {
         _repository = repository;
         _authenticationService = authenticationService;
@@ -28,11 +26,10 @@ public class Environment2DController : ControllerBase
             return BadRequest("Environment data is required.");
         }
 
-        // Haal de ID van de ingelogde gebruiker op
         var userId = _authenticationService.GetCurrentAuthenticatedUserId();
-        _logger.LogInformation("Current authenticated user ID: {UserId}", userId); // Log de gebruikers-ID
+        _logger.LogInformation("Current authenticated user ID: {UserId}", userId);
 
-        var created = await _repository.CreateEnvironment2DAsync(environment);
+        var created = await _repository.CreateEnvironment2DAsync(environment, userId);
         if (created)
         {
             return CreatedAtAction(nameof(CreateEnvironment2D), environment);
