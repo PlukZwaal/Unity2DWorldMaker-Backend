@@ -1,7 +1,8 @@
-﻿namespace WebAPI.Services
-{
     public interface IAuthenticationService
     {
-        string GetCurrentAuthenticatedUserId();
+        /// <summary>
+        /// Returns the user name of the authenticated user
+        /// </summary>
+        /// <returns></returns>
+        string? GetCurrentAuthenticatedUserId();
     }
-}

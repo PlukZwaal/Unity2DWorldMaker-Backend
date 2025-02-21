@@ -5,6 +5,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddScoped<IAuthenticationService, AspNetIdentityAuthenticationService>();
 
 var sqlConnectionString = builder.Configuration["SqlConnectionString"];
 var sqlConnectionStringFound = !string.IsNullOrEmpty(sqlConnectionString);
