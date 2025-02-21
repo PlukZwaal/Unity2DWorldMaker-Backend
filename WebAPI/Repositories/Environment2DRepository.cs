@@ -1,5 +1,7 @@
 ﻿using Microsoft.Data.SqlClient;
-using Dapper; 
+using Dapper;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 public class Environment2DRepository
 {
@@ -31,5 +33,14 @@ public class Environment2DRepository
         });
 
         return result > 0;
+    }
+
+    public async Task<IEnumerable<Environment2D>> GetEnvironment2DsByUserIdAsync(string userId)
+    {
+        using var connection = new SqlConnection(_connectionString);
+        await connection.OpenAsync();
+
+        var sql = "SELECT * FROM environment2ds WHERE userId = @userId";
+        return await connection.QueryAsync<Environment2D>(sql, new { userId });
     }
 }

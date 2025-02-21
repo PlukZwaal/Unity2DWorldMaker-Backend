@@ -27,7 +27,12 @@ public class Environment2DController : ControllerBase
         }
 
         var userId = _authenticationService.GetCurrentAuthenticatedUserId();
-        _logger.LogInformation("Current authenticated user ID: {UserId}", userId);
+        if (string.IsNullOrEmpty(userId))
+        {
+            return Unauthorized("User not authenticated.");
+        }
+
+        _logger.LogInformation("Creating environment for user ID: {UserId}", userId);
 
         var created = await _repository.CreateEnvironment2DAsync(environment, userId);
         if (created)
@@ -38,5 +43,20 @@ public class Environment2DController : ControllerBase
         {
             return StatusCode(500, "Failed to create environment.");
         }
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> GetEnvironmentsForUser()
+    {
+        var userId = _authenticationService.GetCurrentAuthenticatedUserId();
+        if (string.IsNullOrEmpty(userId))
+        {
+            return Unauthorized("User not authenticated.");
+        }
+
+        _logger.LogInformation("Fetching environments for user ID: {UserId}", userId);
+
+        var environments = await _repository.GetEnvironment2DsByUserIdAsync(userId);
+        return Ok(environments);
     }
 }
