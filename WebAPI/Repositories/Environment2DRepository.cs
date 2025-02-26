@@ -43,4 +43,16 @@ public class Environment2DRepository
         var sql = "SELECT * FROM environment2ds WHERE userId = @userId";
         return await connection.QueryAsync<Environment2D>(sql, new { userId });
     }
+
+    public async Task<bool> DeleteEnvironment2DAsync(string id, string userId)
+    {
+        using var connection = new SqlConnection(_connectionString);
+        await connection.OpenAsync();
+
+        var sql = "DELETE FROM environment2ds WHERE id = @id AND userId = @userId";
+
+        var result = await connection.ExecuteAsync(sql, new { id, userId });
+
+        return result > 0;
+    }
 }

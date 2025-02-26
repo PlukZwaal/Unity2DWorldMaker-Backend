@@ -59,4 +59,27 @@ public class Environment2DController : ControllerBase
         var environments = await _repository.GetEnvironment2DsByUserIdAsync(userId);
         return Ok(environments);
     }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteEnvironment2D(string id)
+    {
+        var userId = _authenticationService.GetCurrentAuthenticatedUserId();
+        if (string.IsNullOrEmpty(userId))
+        {
+            return Unauthorized("User not authenticated.");
+        }
+
+        _logger.LogInformation("Deleting environment {EnvironmentId} for user ID: {UserId}", id, userId);
+
+        var deleted = await _repository.DeleteEnvironment2DAsync(id, userId);
+        if (deleted)
+        {
+            return NoContent();
+        }
+        else
+        {
+            return NotFound("Environment not found or you don't have permission to delete it.");
+        }
+
+    }
 }
