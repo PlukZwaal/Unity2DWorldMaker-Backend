@@ -49,10 +49,15 @@ public class Environment2DRepository
         using var connection = new SqlConnection(_connectionString);
         await connection.OpenAsync();
 
+        var sqlObjects = "DELETE FROM object2ds WHERE environmentId = @id";
+
+        await connection.ExecuteAsync(sqlObjects, new { id });
+
         var sql = "DELETE FROM environment2ds WHERE id = @id AND userId = @userId";
 
         var result = await connection.ExecuteAsync(sql, new { id, userId });
 
         return result > 0;
+        
     }
 }
