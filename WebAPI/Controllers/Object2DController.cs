@@ -19,37 +19,25 @@ public class Object2DController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateObject2D(string environmentId, [FromBody] Object2D object2D)
+    public async Task<IActionResult> CreateObject2D(string environmentId, [FromBody] Object2D request)
     {
-        if (object2D == null)
-        {
-            return BadRequest("Object data is required.");
-        }
-
         var userId = _authenticationService.GetCurrentAuthenticatedUserId();
-        _logger.LogInformation("Current authenticated user ID: {UserId}", userId);
+        if (!await _repository.CheckEnvironmentOwnership(environmentId, userId))
+            return Forbid();
 
-        // Controleer of het environment bij de user hoort (extra beveiliging)
-        bool environmentExists = await _repository.CheckEnvironmentOwnership(environmentId, userId);
-        if (!environmentExists)
-        {
-            return Forbid("You do not have access to this environment.");
-        }
+        request.id = Guid.NewGuid().ToString();
+        request.environmentId = environmentId;
 
-        var created = await _repository.CreateObject2DAsync(object2D, environmentId);
-        if (created)
-        {
-            return CreatedAtAction(nameof(CreateObject2D), object2D);
-        }
-        else
-        {
-            return StatusCode(500, "Failed to create object.");
-        }
+        return await _repository.CreateObject2DAsync(request, environmentId)
+            ? CreatedAtAction(nameof(CreateObject2D), request)
+            : StatusCode(500);
     }
 
-    [HttpGet]
+
+[   HttpGet]
     public async Task<IActionResult> GetObjectsByEnvironment(string environmentId)
     {
+        Console.WriteLine("Getting objects for environment ID: " + environmentId);
         var objects = await _repository.GetObjectsByEnvironmentIdAsync(environmentId);
         if (objects == null || objects.Count == 0)
         {
