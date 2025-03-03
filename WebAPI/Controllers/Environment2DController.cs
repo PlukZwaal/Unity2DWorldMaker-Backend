@@ -1,20 +1,16 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using WebAPI.Interfaces;
 
 [ApiController]
 [Route("environments")]
 public class Environment2DController : ControllerBase
 {
-    private readonly IEnvironment2DRepository _repository; // Gebruik de interface in plaats van concrete repository
+    private readonly IEnvironment2DRepository _repository;  // Verander naar interface
     private readonly IAuthenticationService _authenticationService;
     private readonly ILogger<Environment2DController> _logger;
 
-    // Pas de constructor aan om de interface te accepteren
     public Environment2DController(
-        IEnvironment2DRepository repository,  // Gebruik de interface
+        IEnvironment2DRepository repository,  // Verander naar interface
         IAuthenticationService authenticationService,
         ILogger<Environment2DController> logger)
     {
