@@ -1,15 +1,20 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using WebAPI.Interfaces;
 
 [ApiController]
 [Route("environments")]
 public class Environment2DController : ControllerBase
 {
-    private readonly Environment2DRepository _repository;
+    private readonly IEnvironment2DRepository _repository; // Gebruik de interface in plaats van concrete repository
     private readonly IAuthenticationService _authenticationService;
     private readonly ILogger<Environment2DController> _logger;
 
+    // Pas de constructor aan om de interface te accepteren
     public Environment2DController(
-        Environment2DRepository repository,
+        IEnvironment2DRepository repository,  // Gebruik de interface
         IAuthenticationService authenticationService,
         ILogger<Environment2DController> logger)
     {
@@ -80,6 +85,5 @@ public class Environment2DController : ControllerBase
         {
             return NotFound("Environment not found or you don't have permission to delete it.");
         }
-
     }
 }

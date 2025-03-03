@@ -2,8 +2,9 @@
 using Dapper;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using WebAPI.Interfaces;
 
-public class Environment2DRepository
+public class Environment2DRepository : IEnvironment2DRepository
 {
     private readonly string _connectionString;
 
@@ -50,14 +51,11 @@ public class Environment2DRepository
         await connection.OpenAsync();
 
         var sqlObjects = "DELETE FROM object2ds WHERE environmentId = @id";
-
         await connection.ExecuteAsync(sqlObjects, new { id });
 
         var sql = "DELETE FROM environment2ds WHERE id = @id AND userId = @userId";
-
         var result = await connection.ExecuteAsync(sql, new { id, userId });
 
         return result > 0;
-        
     }
 }
