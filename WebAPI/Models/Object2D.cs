@@ -12,7 +12,7 @@
 
     public float scaleX { get; set; }
 
-    public float scaleY { get; set; }
+    public float scaleY { get; set; } 
 
     public float rotationZ { get; set; }
 
