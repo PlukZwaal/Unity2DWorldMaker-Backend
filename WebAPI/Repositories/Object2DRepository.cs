@@ -1,8 +1,8 @@
-﻿using Microsoft.Data.SqlClient;
-using Dapper;
-using System.Threading.Tasks;
+﻿using Dapper;
+using Microsoft.Data.SqlClient;
+using WebAPI.Interfaces;
 
-public class Object2DRepository
+public class Object2DRepository : IObject2DRepository
 {
     private readonly string _connectionString;
 
@@ -23,19 +23,7 @@ public class Object2DRepository
         INSERT INTO object2ds (id, environmentId, prefabId, positionX, positionY, scaleX, scaleY, rotationZ, sortingLayer)
         VALUES (@id, @environmentId, @prefabId, @positionX, @positionY, @scaleX, @scaleY, @rotationZ, @sortingLayer)";
 
-        var result = await connection.ExecuteAsync(sql, new
-        {
-            object2D.id,
-            object2D.environmentId,
-            object2D.prefabId,
-            object2D.positionX,
-            object2D.positionY,
-            object2D.scaleX,
-            object2D.scaleY,
-            object2D.rotationZ,
-            object2D.sortingLayer
-        });
-
+        var result = await connection.ExecuteAsync(sql, object2D);
         return result > 0;
     }
 
@@ -45,7 +33,6 @@ public class Object2DRepository
         await connection.OpenAsync();
 
         var sql = "SELECT COUNT(*) FROM environment2ds WHERE id = @environmentId AND userId = @userId";
-
         int count = await connection.ExecuteScalarAsync<int>(sql, new { environmentId, userId });
 
         return count > 0;

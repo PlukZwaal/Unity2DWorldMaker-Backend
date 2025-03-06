@@ -1,15 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using WebAPI.Interfaces;
 
 [ApiController]
 [Route("environments/{environmentId}/objects")]
 public class Object2DController : ControllerBase
 {
-    private readonly Object2DRepository _repository;
+    private readonly IObject2DRepository _repository;  // ✅ Gebruik interface i.p.v. concrete klasse
     private readonly IAuthenticationService _authenticationService;
     private readonly ILogger<Object2DController> _logger;
 
     public Object2DController(
-        Object2DRepository repository,
+        IObject2DRepository repository,  // ✅ Verander naar interface
         IAuthenticationService authenticationService,
         ILogger<Object2DController> logger)
     {
@@ -33,11 +34,11 @@ public class Object2DController : ControllerBase
             : StatusCode(500);
     }
 
-
-[   HttpGet]
+    [HttpGet]
     public async Task<IActionResult> GetObjectsByEnvironment(string environmentId)
     {
-        Console.WriteLine("Getting objects for environment ID: " + environmentId);
+        _logger.LogInformation($"Getting objects for environment ID: {environmentId}");
+
         var objects = await _repository.GetObjectsByEnvironmentIdAsync(environmentId);
         if (objects == null || objects.Count == 0)
         {

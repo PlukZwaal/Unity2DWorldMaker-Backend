@@ -1,8 +1,8 @@
-﻿
-using Moq;
+﻿using Moq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using WebAPI.Interfaces;
 using Microsoft.Extensions.Logging;
 
@@ -12,7 +12,7 @@ public class Environment2DControllerTests
     [TestMethod]
     public async Task GetEnvironmentsForUser_ReturnsOk_WithEnvironments()
     {
-        var mockRepository = new Mock<IEnvironment2DRepository>(); 
+        var mockRepository = new Mock<IEnvironment2DRepository>();
         var mockAuthService = new Mock<IAuthenticationService>();
         var mockLogger = new Mock<ILogger<Environment2DController>>();
 
@@ -35,5 +35,36 @@ public class Environment2DControllerTests
         var returnedEnvironments = okResult.Value as List<Environment2D>;
         Assert.IsNotNull(returnedEnvironments);
         Assert.AreEqual(2, returnedEnvironments.Count);
+    }
+}
+
+[TestClass]
+public class Object2DControllerTests
+{
+    [TestMethod]
+    public async Task GetObjectsByEnvironment_ReturnsOk_WithObjects()
+    {
+        var mockRepository = new Mock<IObject2DRepository>();
+        var mockAuthService = new Mock<IAuthenticationService>();
+        var mockLogger = new Mock<ILogger<Object2DController>>();
+
+        var controller = new Object2DController(mockRepository.Object, mockAuthService.Object, mockLogger.Object);
+
+        var environmentId = "env1";
+        var objects = new List<Object2D>
+        {
+            new Object2D { id = "obj1", environmentId = environmentId, prefabId = "prefab1" },
+            new Object2D { id = "obj2", environmentId = environmentId, prefabId = "prefab2" }
+        };
+
+        mockRepository.Setup(repo => repo.GetObjectsByEnvironmentIdAsync(environmentId)).ReturnsAsync(objects);
+
+        var result = await controller.GetObjectsByEnvironment(environmentId);
+
+        var okResult = result as OkObjectResult;
+        Assert.IsNotNull(okResult);
+        var returnedObjects = okResult.Value as List<Object2D>;
+        Assert.IsNotNull(returnedObjects);
+        Assert.AreEqual(2, returnedObjects.Count);
     }
 }
