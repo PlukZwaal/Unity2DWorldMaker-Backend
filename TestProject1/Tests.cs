@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using WebAPI.Interfaces;
 using Microsoft.Extensions.Logging;
+using System;
 
 [TestClass]
 public class Environment2DControllerTests
@@ -53,8 +54,8 @@ public class Object2DControllerTests
         var environmentId = "env1";
         var objects = new List<Object2D>
         {
-            new Object2D { id = "obj1", environmentId = environmentId, prefabId = "prefab1" },
-            new Object2D { id = "obj2", environmentId = environmentId, prefabId = "prefab2" }
+            new Object2D { id = Guid.NewGuid().ToString(), environmentId = environmentId, prefabId = "prefab1" },
+            new Object2D { id = Guid.NewGuid().ToString(), environmentId = environmentId, prefabId = "prefab2" }
         };
 
         mockRepository.Setup(repo => repo.GetObjectsByEnvironmentIdAsync(environmentId)).ReturnsAsync(objects);
@@ -66,5 +67,27 @@ public class Object2DControllerTests
         var returnedObjects = okResult.Value as List<Object2D>;
         Assert.IsNotNull(returnedObjects);
         Assert.AreEqual(2, returnedObjects.Count);
+    }
+
+    [TestMethod]
+    public async Task CreateObject2D_ReturnsForbidden_WhenUserDoesNotOwnEnvironment()
+    {
+        var mockRepository = new Mock<IObject2DRepository>();
+        var mockAuthService = new Mock<IAuthenticationService>();
+        var mockLogger = new Mock<ILogger<Object2DController>>();
+
+        var controller = new Object2DController(mockRepository.Object, mockAuthService.Object, mockLogger.Object);
+
+        var environmentId = "env1";
+        var userId = "user2"; 
+        var objectToCreate = new Object2D { id = Guid.NewGuid().ToString(), environmentId = environmentId, prefabId = "prefab1" };
+
+        mockRepository.Setup(repo => repo.CheckEnvironmentOwnership(environmentId, userId)).ReturnsAsync(false);
+        mockAuthService.Setup(auth => auth.GetCurrentAuthenticatedUserId()).Returns(userId);
+
+        var result = await controller.CreateObject2D(environmentId, objectToCreate);
+
+        var forbidResult = result as ForbidResult;
+        Assert.IsNotNull(forbidResult);
     }
 }
