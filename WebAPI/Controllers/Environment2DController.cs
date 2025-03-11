@@ -1,3 +1,4 @@
+using Azure.Core;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.Interfaces;
 
@@ -25,6 +26,21 @@ public class Environment2DController : ControllerBase
         if (environment == null)
         {
             return BadRequest("Environment data is required.");
+        }
+
+        if (string.IsNullOrWhiteSpace(environment.name) || environment.name.Length > 25)
+        {
+            return BadRequest("De naam moet tussen 1 en 25 karakters lang zijn.");
+        }
+
+        if (environment.maxHeight < 10 || environment.maxHeight > 100)
+        {
+            return BadRequest("MaxHeight moet tussen de 10 en 100 zijn.");
+        }
+
+        if (environment.maxLength < 20 || environment.maxLength > 200)
+        {
+            return BadRequest("MaxHeight moet tussen de 10 en 100 zijn.");
         }
 
         var userId = _authenticationService.GetCurrentAuthenticatedUserId();
