@@ -23,8 +23,14 @@ public class Object2DController : ControllerBase
     public async Task<IActionResult> CreateObject2D(string environmentId, [FromBody] Object2D request)
     {
         var userId = _authenticationService.GetCurrentAuthenticatedUserId();
+        if (string.IsNullOrEmpty(userId))
+        {
+            return Unauthorized("User not authenticated.");
+        }
+
         if (!await _repository.CheckEnvironmentOwnership(environmentId, userId))
             return Forbid();
+
 
         request.id = Guid.NewGuid().ToString();
         request.environmentId = environmentId;
